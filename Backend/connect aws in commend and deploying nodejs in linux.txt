@@ -1,0 +1,194 @@
+                        connecting aws in commends first --
+C:\Users\akash>cd Documents\awscredentials
+
+then check .pem file present or not---
+C:\Users\akash>Documents\awscredentials>expensekey.pem
+
+then connect with aws ssh ---
+ssh -i "expensekey.pem" ec2-user@ec2-3-110-123-199.ap-south-1.compute.amazonaws.com
+
+                        Then installing nodejs in linux-------
+        First search on google yum install npm. And you will get a stack Overflow website for details.                 
+After connecting with aws you will get "[ec2-user@ip-172-31-42-46 ~]$"
+run it as "sudo su" -- you will become a super user.
+  [ec2-user@ip-172-31-42-46 ~]$ sudo su
+
+To get out from a super user press ctrl+d.
+
+you will be a root user and lyou will get  "[root@ip-172-31-42-46 ec2-user]#"
+ 
+here run   "curl --silent --location https://rpm.nodesource.com/setup_20.x | bash -"
+[root@ip-172-31-42-46 ec2-user]# curl --silent --location https://rpm.nodesource.com/setup_20.x | bash -
+
+then it will say "Repository is configured and updated. Run 'dnf install nodejs -y' to complete the installation." 
+ here you will run "sudo yum install -y nodejs"
+[root@ip-172-31-42-46 ec2-user]# sudo yum install -y nodejs
+
+
+                        Then installing git in linux-----
+git email -- "babaidutta222001@gmail.com"
+git password -- "Ashok dutta1"
+
+After installing nodejs you have to install git
+To install git you only run "sudo yum install git -y"
+To check git version you can run "git -v"
+
+Git personal access token -- "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"
+To login in github use this access token in commend prompt.
+it Won't be visible when you paste in commend prompt for security reason. So just paste and enter.
+
+After login you have to enter "git clone 'enter https url' "
+Example: git clone  https://github.com/MAFIYADSR/Lets-get-started-with-typescript.git
+
+After going to Repository you can just enter "ls" . It will show file name which is inside this.
+Example: [ec2-user@ip-172-31-42-46 ~]$ ls
+ans -- 22-Deploying-to-AWS-with-CICD-pipelines
+
+If you enter pwd it will show ec2 home.
+"[ec2-user@ip-172-31-42-46 ~]$ pwd
+/home/ec2-user"
+
+To go inside the you have to enter "cd Repository name"
+Example : "[ec2-user@ip-172-31-42-46 ~]$ cd 22-Deploying-to-AWS-with-CICD-pipelines"
+It will show all the files inside this Repository. 
+
+If you wants to add new folder in git repository you have to run "mkdir 'filename'"
+Example: "[root@ip-172-31-42-46 22-Deploying-to-AWS-with-CICD-pipelines]# mkdir newwork"
+It will create a new folder name "newwork" in repository.
+
+If you want to delete something you have to run "rm -rf 'file name'"
+Example: "[root@ip-172-31-42-46 22-Deploying-to-AWS-with-CICD-pipelines]# rm -rf newwork"
+It will remove  "newwork" folder from repository.
+
+IF you are wants to go inside a git repository just type "cd  'repositry name' "
+Example: cd Deploying-to-AWS-with-CICD-pipelines
+
+IF you are inside a git repository and you want to back to root user just type "cd ../"
+Example: [root@ip-172-31-42-46 Deploying-to-AWS-with-CICD-pipelines]# cd ../
+
+IF you are inside git repository and you want to see hidden/private files like .gitignore etc just type "ls -la"
+Example: [root@ip-172-31-42-46 Deploying-to-AWS-with-CICD-pipelines]# ls -la
+
+If you want to edit .env file so just enter "vi .env"
+If not works then check you have many branches. To check branches enter "git branch -a"
+Then choose original branch and go to that branch by entering "git checkout 'branchname' "
+  Then enter "vi .env" to edit.
+  When you want to edit in vi just press "i"
+  When you want to save and exit in vi just press "Escap(Esc) colan(:)  wq"
+  When you want  exit without saving in vi just press "Escap(Esc) colan(:)  q"
+
+
+                Connect to mysql----
+
+First create rds data base
+My Database username = akashdutta
+password = ashokdutta
+Endpoint = database-1.c1g4oqcqg9xw.ap-south-1.rds.amazonaws.com
+Ec2 security group = sg-0bd2aba9d3dd6dc54
+
+        Nodemon problem--------->
+
+    If "sudo npm i" is not work you can do this forcefully using this commmand.
+    "sudo npm install --unsafe-pern=true --allow-root"
+
+If you run nodemon in other editor you can't run in same port in commmand promt.
+it will show something like this --
+"Error: listen EADDRINUSE: address already in use :::3000"
+
+To kill this i have to run "lsof -i :3000" 
+then check PID number.
+then run "kill 'PID number'"
+like this "[root@ip-172-31-11-228 Deploying-to-AWS-with-CICD-pipelines]# kill 29901"
+
+Don't use ndoemon. Insted of nodemon use pm2.
+use "npm i -g pm2 to install".
+Use "pm2 start app.js".
+Use "pm2 status" to see server running or not.
+use "pm2 stop all" to stop pm2.
+use pm2 logs to see logs 
+
+
+          Installing jenkins-----------
+If you are running code as a super user first get out from a super user using ctrl+d.
+Then add the jenkins repo using the following commmand.
+"sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat/jenkins.repo"
+
+Then import a key file from the jenkins-cl to enable installation from the package
+"sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io-2023.key"
+Then run "sudo yum upgrade" to upgarde.
+then install java
+"sudo dnf install java-11-amazon-corretto -y"
+then install jenkins
+"sudo dnf install jenkins"
+then enable jenkins
+"sudo systemctl enable jenkins"
+then start jenkins
+"sudo systemctl start jenkins"
+then check status jenkins. It will show running
+"sudo systemctl status jenkins"
+
+To configure jenkins in website.
+You have to rn it 8080 port.
+"localhost:8080"
+Here localhost is your open address in aws ec2.
+
+There copy "/var/lib/jenkins/secrets/initialAdminPassword"
+and paste it in commmand promt as super user using vi.
+Example"sudo vi /var/lib/jenkins/secrets/initialAdminPassword"
+You will gate password .
+here password is "bc0345d5a1e747399a86d1535699f0ca"
+to get out from password pannel press :qa+Enter
+
+Then put the password in jenkins page.
+Then customise jenkins page will open.
+Go with "Install suggested plugins".
+
+Then create user in jenkins.
+username- akashdutta
+password- ashokdutta1
+fullname- Akash dutta
+email- babaidutta222001@gmail.com
+jenkins url- http://localhost:8080/
+
+Then enter getting started.
+From dashbord click on manage jenkins-> credentials-> system-> Global credentials (unrestricted)
+-> Add credentials
+In username section enter git email.
+In password section enter git password.
+in description section enter git credentials.
+Else leave as defult.
+
+Now go to dashbord-> New Item->Enter name(Her i give expensetracker)
+->Freestyle Project-> Ok
+Then next page will open. There in source code management select git
+Then select git repository url.
+Then select credential you made recently.
+then in advance section select brach name. (Here my brach is master)
+Save it. And build now.
+If done then go to build history and click on date. Then console output and check its done or not.
+If done from Building in workspace line copy the url and paste it in commmand as ec2 user using cd.
+Example: "cd /var/lib/jenkins/workspace"
+Then enter ls and it will show expensetracker file.
+Then change the directory in expensetracker using cd .
+Example: "cd expensetracker"
+Then do ls to see files. and do ls -la to see hidden files also
+
+jenkins Building in workspace /var/lib/jenkins/workspace/expensetracker"
+run it using cd.( change directory)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
